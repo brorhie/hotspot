@@ -1,0 +1,23 @@
+{
+  "name": "hotspot",
+  "version": "0.1.0",
+  "homepage": "https://github.com/lookis/hotspot",
+  "authors": [
+    "Lookis <lookisliu@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "GPLv2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1"
+  }
+}

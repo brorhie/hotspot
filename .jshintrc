@@ -1,0 +1,15 @@
+{
+  "camelcase": true,
+  "indent": 2,
+  "strict": true,
+  "node": true,
+  "quotmark": "single",
+  "globals": {
+    "describe": false,
+    "it": false,
+    "before": false,
+    "beforeEach": false,
+    "after": false,
+    "afterEach": false
+  }
+}
