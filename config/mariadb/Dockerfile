@@ -12,12 +12,18 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y procps mariadb-galera-server galera percona-xtrabackup-21
 
+ENV RADIUS_PASS radpass_321
+ENV RADIUS_USER freeradius
+ENV RADIUS_NAME freeradius
+ENV BACKUP_USER xtrabackup-v2
+
 RUN cp /usr/share/mysql/wsrep.cnf /etc/mysql/conf.d/ \
-    && sed -i 's/wsrep_sst_method=rsync/wsrep_sst_method=xtrabackup-v2/' /etc/mysql/conf.d/wsrep.cnf \
+    && sed -i "s/wsrep_sst_method=rsync/wsrep_sst_method=$BACKUP_USER/" /etc/mysql/conf.d/wsrep.cnf \
     && PASS=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32|head -n 1` \
-    && sed -i "s/wsrep_sst_auth=root:/wsrep_sst_auth=xtrabackup-v2:$PASS/" /etc/mysql/conf.d/wsrep.cnf \
+    && sed -i "s/wsrep_sst_auth=root:/wsrep_sst_auth=$BACKUP_USER:$PASS/" /etc/mysql/conf.d/wsrep.cnf \
     && service mysql start \
-    && mysql -e "CREATE USER 'xtrabackup-v2'@'localhost' IDENTIFIED BY '$PASS';GRANT ALL ON *.* TO 'xtrabackup-v2'@'localhost';flush privileges;" \
+    && mysql -e "CREATE USER '$BACKUP_USER'@'localhost' IDENTIFIED BY '$PASS';GRANT ALL ON *.* TO '$BACKUP_USER'@'localhost';flush privileges;" \
+    && mysql -e "CREATE USER '$RADIUS_USER'@'%' IDENTIFIED BY '$RADIUS_PASS';GRANT ALL ON $RADIUS_NAME.* TO '$RADIUS_USER'@'%';flush privileges;" \
     && sed -i "s/wsrep_provider=none/wsrep_provider=\/usr\/lib\/galera\/libgalera_smm.so/" /etc/mysql/conf.d/wsrep.cnf
 
 
