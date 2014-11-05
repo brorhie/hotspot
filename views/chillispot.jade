@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .container
+    .header
+      h3.text-muted Project name
+    .card
+      .description
+        h1 Hello World
+        p.lead
+          | This is a project for anyone who wanna use mobile data network at a low price.
+      .pull-right
+        form.form-inline(role='form')
+          .form-group
+            label.sr-only Email address
+            input.form-control(type='email', placeholder='Email address', required='')
+          button.btn.btn-default.btn-success(type='submit') Sign in
+      .clearfix
+    hr
+    .footer
+      p &copy; Company 2014

@@ -42,6 +42,8 @@ RUN rm -f /etc/nginx/sites-available/default \
     && ln -s /etc/nginx/sites-available/daloradius.conf /etc/nginx/sites-enabled/daloradius.conf
 
 
+EXPOSE 80
+
 ADD entrypoint.sh /
 RUN chmod a+x entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

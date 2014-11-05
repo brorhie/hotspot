@@ -5,9 +5,7 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Account = sequelize.define('Account', {
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    salt: DataTypes.STRING
+    email: DataTypes.STRING
   });
 
   return Account;
